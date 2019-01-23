@@ -87,13 +87,17 @@ class _AnimalListScreenState extends State {
     }
   }
 
-  initState() async {
-    super.initState();
+  void fetchAnimals() async {
     var futureAnimals = await getAnimals();
     setState(() {
       animals.addAll(futureAnimals);
       animalsToDisplay.addAll(futureAnimals);
     });
+  }
+
+  initState() {
+    super.initState();
+    fetchAnimals();
   }
 
   dispose() {
