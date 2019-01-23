@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../models/Animal.dart';
+import '../models/AnimalRepo.dart';
 import '../models/Zoo.dart';
 
 class ZooScreen extends StatefulWidget {
@@ -13,12 +15,48 @@ class ZooScreen extends StatefulWidget {
 
 class _ZooScreenState extends State<ZooScreen> {
   final Zoo zoo;
+  List<Animal> animalsForZoo;
 
   _ZooScreenState({@required this.zoo});
+
+  void _getAnimals() {
+    animalsForZoo = new List<Animal>();
+    var currentDocId = zoo.reference.documentID;
+
+    getAnimals().then((animals) {
+      setState(() {
+        animals.forEach((animal) {
+          var foundZoo = animal.zoos.firstWhere((animalZoo) {
+            return animalZoo.documentID == currentDocId;
+          });
+          if (foundZoo != null) {
+            animalsForZoo.add(animal);
+          }
+        });
+      });
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    _getAnimals();
+  }
+
+  Widget _buildListItem(BuildContext context, Animal animal) {
+    return Padding(
+      key: ValueKey(animal.name),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: ListTile(
+          title: Text(animal.name),
+        ),
+      ),
+    );
   }
 
   @override
@@ -28,6 +66,14 @@ class _ZooScreenState extends State<ZooScreen> {
         new Container(
           height: 230.0,
           child: Text("${zoo.name}"),
+        ),
+        new Expanded(
+          child: ListView(
+            padding: const EdgeInsets.only(top: 20.0),
+            children: animalsForZoo
+                .map((data) => _buildListItem(context, data))
+                .toList(),
+          ),
         ),
       ],
     );

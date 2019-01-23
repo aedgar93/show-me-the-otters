@@ -11,7 +11,7 @@ class SideNav extends StatefulWidget {
   createState() => _SideNavState(currentPage: this.currentPage);
 }
 
-class _SideNavState extends State {
+class _SideNavState extends State<SideNav> {
   final String currentPage;
 
   _SideNavState({@required this.currentPage});

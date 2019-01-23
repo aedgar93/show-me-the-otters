@@ -16,7 +16,7 @@ Future<List<Animal>> getAnimals() {
       data.documents.forEach((doc) {
         animals.add(Animal.fromSnapshot(doc));
       });
-      completer.complete(animals);
+      if (!completer.isCompleted) completer.complete(animals);
     });
   }
   return completer.future;

@@ -12,7 +12,8 @@ class Animal {
   }
 
   factory Animal.fromMap(Map<String, dynamic> results, DocumentReference ref) {
-    var zoos = new List<DocumentReference>.from(results['zoos']);
+    var zoos = new List<DocumentReference>();
+    results['zoos'].forEach((zoo) => zoos.add(zoo));
     return Animal(
       zoos: zoos,
       name: results['name'],
