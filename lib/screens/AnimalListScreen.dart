@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/Animal.dart';
 import '../models/AnimalRepo.dart';
+import 'AnimalScreen.dart';
 
 class AnimalListScreen extends StatefulWidget {
   AnimalListScreen();
@@ -54,12 +55,12 @@ class _AnimalListScreenState extends State {
         ),
         child: ListTile(
           title: Text(animal.name),
-//          onTap: () => Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                  builder: (context) => AnimalScreen(animal: animal),
-//                ),
-//              ),
+          onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AnimalScreen(animal: animal),
+                ),
+              ),
         ),
       ),
     );

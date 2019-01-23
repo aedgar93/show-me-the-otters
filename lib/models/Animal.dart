@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Animal {
-  final List<dynamic> zoos;
+  final List<DocumentReference> zoos;
   final String name;
   final DocumentReference reference;
 

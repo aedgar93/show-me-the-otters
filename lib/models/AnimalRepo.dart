@@ -6,8 +6,8 @@ import 'Animal.dart';
 
 List<Animal> animals;
 
-Future getAnimals() {
-  var completer = new Completer();
+Future<List<Animal>> getAnimals() {
+  var completer = new Completer<List<Animal>>();
   if (animals != null) {
     completer.complete(animals);
   } else {
