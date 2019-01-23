@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Zoo {
-  final List<dynamic> animals;
+  final List<DocumentReference> animals;
   final String name;
   final GeoPoint location;
   final DocumentReference reference;
@@ -13,8 +13,9 @@ class Zoo {
   }
 
   factory Zoo.fromMap(Map<String, dynamic> results, DocumentReference ref) {
+    var animals = new List<DocumentReference>.from(results['animals']);
     return Zoo(
-      animals: results['animals'],
+      animals: animals,
       name: results['name'],
       location: results['location'],
       reference: ref,

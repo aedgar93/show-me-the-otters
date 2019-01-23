@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/SideNav.dart';
 import '../models/Animal.dart';
 import '../models/AnimalRepo.dart';
 import 'AnimalScreen.dart';
@@ -111,40 +112,7 @@ class _AnimalListScreenState extends State {
       appBar: AppBar(
         title: Text("Animal List"),
       ),
-      drawer: new Drawer(
-          child: new ListView(
-        children: <Widget>[
-          Container(
-            height: 70,
-            child: new DrawerHeader(
-                child: new Text(
-                  "Show me the Otters!",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
-                decoration: new BoxDecoration(color: Colors.teal),
-                padding: EdgeInsets.all(20.0)),
-          ),
-          new ListTile(
-            title: new Text('Animals'),
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          new ListTile(
-            title: new Text('Zoos'),
-//            onTap: () {
-//              Navigator.of(context).pop();
-//              Navigator.of(context).push(MaterialPageRoute(
-//                  builder: (BuildContext context) => ZooListScreen()));
-//            },
-            trailing: Icon(Icons.navigate_next),
-          ),
-        ],
-      )),
+      drawer: SideNav(currentPage: 'animals'),
       body: Container(
         child: Column(
           children: <Widget>[
