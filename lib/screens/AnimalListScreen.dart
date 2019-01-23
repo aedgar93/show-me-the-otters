@@ -89,7 +89,7 @@ class _AnimalListScreenState extends State {
     }
   }
 
-  void fetchAnimals() async {
+  void _getAnimals() async {
     var futureAnimals = await getAnimals();
     setState(() {
       animals.addAll(futureAnimals);
@@ -99,7 +99,7 @@ class _AnimalListScreenState extends State {
 
   initState() {
     super.initState();
-    fetchAnimals();
+    _getAnimals();
   }
 
   dispose() {

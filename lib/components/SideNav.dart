@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/AnimalListScreen.dart';
+import '../screens/ZooListScreen.dart';
 
 class SideNav extends StatefulWidget {
   final String currentPage;
@@ -50,8 +51,8 @@ class _SideNavState extends State {
           onTap: () {
             Navigator.of(context).pop();
             if (currentPage != 'zoos') {
-//              Navigator.of(context).push(MaterialPageRoute(
-//                  builder: (BuildContext context) => ZooListScreen()));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => ZooListScreen()));
             }
           },
           trailing: currentPage != 'zoos' ? Icon(Icons.navigate_next) : null,
