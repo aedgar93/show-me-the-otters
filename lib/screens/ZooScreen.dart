@@ -26,13 +26,16 @@ class _ZooScreenState extends State<ZooScreen> {
     getAnimals().then((animals) {
       setState(() {
         animals.forEach((animal) {
-          var foundZoo = animal.zoos.firstWhere((animalZoo) {
+          if (animal == null || animal.zoos == null || animal.zoos.length == 0)
+            return print(animal);
+          var foundZooIndex = animal.zoos.lastIndexWhere((animalZoo) {
             return animalZoo.documentID == currentDocId;
           });
-          if (foundZoo != null) {
+          if (foundZooIndex != -1) {
             animalsForZoo.add(animal);
           }
         });
+        animalsForZoo.sort((a, b) => a.name.compareTo(b.name));
       });
     });
   }

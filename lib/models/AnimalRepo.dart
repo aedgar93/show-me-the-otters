@@ -16,6 +16,7 @@ Future<List<Animal>> getAnimals() {
       data.documents.forEach((doc) {
         animals.add(Animal.fromSnapshot(doc));
       });
+      animals.sort((a, b) => a.name.compareTo(b.name));
       if (!completer.isCompleted) completer.complete(animals);
     });
   }
