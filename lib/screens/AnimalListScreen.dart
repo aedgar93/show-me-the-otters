@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../animal_icons_icons.dart';
+import '../components/AnimalIconsMap.dart';
 import '../components/SideNav.dart';
 import '../models/Animal.dart';
 import '../models/AnimalRepo.dart';
@@ -57,7 +57,7 @@ class _AnimalListScreenState extends State {
         ),
         child: ListTile(
           leading: Icon(
-            AnimalIcons.elephant_side_view,
+            animal.icon != null ? animalIconMap[animal.icon] : Icons.pets,
             color: Colors.blueAccent,
           ),
           title: Text(animal.name),
