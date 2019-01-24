@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../animal_icons_icons.dart';
 import '../components/SideNav.dart';
 import '../models/Animal.dart';
 import '../models/AnimalRepo.dart';
@@ -55,6 +56,10 @@ class _AnimalListScreenState extends State {
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: ListTile(
+          leading: Icon(
+            AnimalIcons.elephant_side_view,
+            color: Colors.blueAccent,
+          ),
           title: Text(animal.name),
           onTap: () => Navigator.push(
                 context,
