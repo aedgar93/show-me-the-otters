@@ -41,14 +41,11 @@ class _AnimalScreenState extends State<AnimalScreen> {
   }
 
   void _updateMarkers() {
-    var defaultLatLng;
     zoosForAnimal.forEach((zoo) {
-      var latlng = new LatLng(zoo.location.latitude, zoo.location.longitude);
-      defaultLatLng = latlng;
-      var marker = new MarkerOptions(position: latlng);
+      var latLng = new LatLng(zoo.location.latitude, zoo.location.longitude);
+      var marker = new MarkerOptions(position: latLng);
       mapController.addMarker(marker);
     });
-    mapController.moveCamera(CameraUpdate.newLatLng(defaultLatLng));
   }
 
   void _onMapCreated(GoogleMapController controller) {

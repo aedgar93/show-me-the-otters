@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../components/AnimalListItem.dart';
 import '../models/Animal.dart';
@@ -17,6 +18,7 @@ class ZooScreen extends StatefulWidget {
 class _ZooScreenState extends State<ZooScreen> {
   final Zoo zoo;
   List<Animal> animalsForZoo;
+  GoogleMapController mapController;
 
   _ZooScreenState({@required this.zoo});
 
@@ -51,13 +53,35 @@ class _ZooScreenState extends State<ZooScreen> {
     return new AnimalListItem(animal: animal);
   }
 
+  void _updateMarkers() {
+    var latLng = new LatLng(zoo.location.latitude, zoo.location.longitude);
+    var marker = new MarkerOptions(position: latLng);
+    mapController.addMarker(marker);
+    mapController.moveCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: latLng,
+        zoom: 10.0,
+      ),
+    ));
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    setState(() {
+      mapController = controller;
+      _updateMarkers();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenWidget = new Column(
       children: <Widget>[
         new Container(
           height: 230.0,
-          child: Text("${zoo.name}"),
+          child: GoogleMap(
+            options: new GoogleMapOptions(myLocationEnabled: true),
+            onMapCreated: _onMapCreated,
+          ),
         ),
         new Expanded(
           child: ListView(
