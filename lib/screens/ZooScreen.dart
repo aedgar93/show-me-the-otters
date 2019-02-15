@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/AnimalListItem.dart';
 import '../models/Animal.dart';
 import '../models/AnimalRepo.dart';
 import '../models/Zoo.dart';
@@ -47,19 +48,7 @@ class _ZooScreenState extends State<ZooScreen> {
   }
 
   Widget _buildListItem(BuildContext context, Animal animal) {
-    return Padding(
-      key: ValueKey(animal.name),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: ListTile(
-          title: Text(animal.name),
-        ),
-      ),
-    );
+    return new AnimalListItem(animal: animal);
   }
 
   @override

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../components/AnimalIconsMap.dart';
+import '../components/AnimalListItem.dart';
 import '../components/SideNav.dart';
 import '../models/Animal.dart';
 import '../models/AnimalRepo.dart';
-import 'AnimalScreen.dart';
 
 class AnimalListScreen extends StatefulWidget {
   AnimalListScreen();
@@ -47,29 +46,7 @@ class _AnimalListScreenState extends State {
   }
 
   Widget _buildListItem(BuildContext context, Animal animal) {
-    return Padding(
-      key: ValueKey(animal.name),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: ListTile(
-          leading: Icon(
-            animal.icon != null ? animalIconMap[animal.icon] : Icons.pets,
-            color: Colors.blueAccent,
-          ),
-          title: Text(animal.name),
-          onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AnimalScreen(animal: animal),
-                ),
-              ),
-        ),
-      ),
-    );
+    return new AnimalListItem(animal: animal);
   }
 
   void filterSearchResults(String query) {
