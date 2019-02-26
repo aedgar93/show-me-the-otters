@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -17,7 +19,7 @@ class AnimalScreen extends StatefulWidget {
 class _AnimalScreenState extends State<AnimalScreen> {
   final Animal animal;
   final List<Zoo> zoosForAnimal = new List<Zoo>();
-  GoogleMapController mapController;
+  Completer<GoogleMapController> _mapController = Completer();
 
   _AnimalScreenState({@required this.animal});
 
@@ -30,7 +32,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
           return zoo.reference.documentID == ref.documentID;
         }));
       });
-      if (mapController != null) _updateMarkers();
+      _updateMarkers();
     });
   }
 
@@ -40,7 +42,9 @@ class _AnimalScreenState extends State<AnimalScreen> {
     getAnimalsZoos();
   }
 
-  void _updateMarkers() {
+  void _updateMarkers() async {
+    final GoogleMapController mapController = await _mapController.future;
+    if (zoosForAnimal == null || zoosForAnimal.length == 0) return;
     zoosForAnimal.forEach((zoo) {
       var latLng = new LatLng(zoo.location.latitude, zoo.location.longitude);
       var marker = new MarkerOptions(position: latLng);
@@ -49,10 +53,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    setState(() {
-      mapController = controller;
-      if (zoosForAnimal.length > 0) _updateMarkers();
-    });
+    _mapController.complete(controller);
   }
 
   @override
@@ -62,7 +63,10 @@ class _AnimalScreenState extends State<AnimalScreen> {
         new Container(
           height: 300.0,
           child: GoogleMap(
-            options: new GoogleMapOptions(myLocationEnabled: true),
+            initialCameraPosition: CameraPosition(
+              target: LatLng(39.82, -98.5),
+              zoom: 3,
+            ),
             onMapCreated: _onMapCreated,
           ),
         ),
